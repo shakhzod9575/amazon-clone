@@ -5,18 +5,32 @@ import { loadProducts, loadProductsFetch } from "../data/products.js";
 // import '../data/backend-practice.js'
 import { loadCart } from "../data/cart.js";
 
+async function loadPage() {
+    await loadProductsFetch();
 
-Promise.all([
-    loadProductsFetch(),
-    new Promise((resolve) => {
+    await new Promise((resolve) => {
         loadCart(() => {
             resolve();
         });
     })
-]).then(() => {
+    
     renderOrderSummary();
     renderPaymentSummary();
-});
+}
+
+loadPage();
+
+// Promise.all([
+//     loadProductsFetch(),
+//     new Promise((resolve) => {
+//         loadCart(() => {
+//             resolve();
+//         });
+//     })
+// ]).then(() => {
+//     renderOrderSummary();
+//     renderPaymentSummary();
+// });
 
 // loadProducts(() => {
 //     loadCart(() => {
